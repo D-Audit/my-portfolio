@@ -1,24 +1,25 @@
 {
-  "name": "v4",
-  "description": "Personal Website V4",
+  "name": "kayiranga-don-jesus-portfolio",
+  "description": "Personal portfolio for Kayiranga Don Jesus",
   "version": "1.0.0",
-  "author": "Brittany Chiang <brittany.chiang@gmail.com>",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/bchiang7/v4"
-  },
+  "author": "Kayiranga Don Jesus <donjesuskayiranga@gmail.com>",
   "keywords": [
     "gatsby"
   ],
   "license": "MIT",
+  "packageManager": "yarn@1.22.22",
+  "engines": {
+    "node": "20.x"
+  },
   "browserslist": "> 0.25%, not dead",
   "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
+    "build": "node scripts/enable-legacy-gatsby.js && node --openssl-legacy-provider ./node_modules/gatsby/cli.js build",
+    "develop": "yarn preview",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-    "start": "npm run develop",
-    "serve": "gatsby serve",
-    "clean": "gatsby clean",
+    "start": "yarn preview",
+    "serve": "node --openssl-legacy-provider ./node_modules/gatsby/cli.js serve --port 8000 --host 127.0.0.1",
+    "preview": "yarn build && yarn serve",
+    "clean": "node scripts/enable-legacy-gatsby.js && node --openssl-legacy-provider ./node_modules/gatsby/cli.js clean",
     "prepare": "husky install",
     "lint-staged": "lint-staged"
   },
