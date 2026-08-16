@@ -1,0 +1,175 @@
+yarn run v1.22.22
+$ node scripts/enable-legacy-gatsby.js && node --openssl-legacy-provider ./node_modules/gatsby/cli.js develop --host 127.0.0.1
+(node:32176) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env
+ being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+info
+
+There are 6 other flags available that you might be interested in:
+- FAST_DEV · Enable all experiments aimed at improving develop server start time
+- DEV_SSR · (Umbrella Issue (https://gatsby.dev/dev-ssr-feedback)) · Server Side
+ Render (SSR) pages on full reloads during develop. Helps you detect SSR bugs
+and fix them without needing to do full builds.
+- PRESERVE_WEBPACK_CACHE · (Umbrella Issue
+(https://gatsby.dev/cache-clearing-feedback)) · Use webpack's persistent caching
+ and don't delete webpack's cache when changing gatsby-node.js &
+gatsby-config.js files.
+- PRESERVE_FILE_DOWNLOAD_CACHE · (Umbrella Issue
+(https://gatsby.dev/cache-clearing-feedback)) · Don't delete the downloaded
+files cache when changing gatsby-node.js & gatsby-config.js files.
+- PARALLEL_SOURCING · EXPERIMENTAL · (Umbrella Issue
+(https://gatsby.dev/parallel-sourcing-feedback)) · Run all source plugins at the
+ same time instead of serially. For sites with multiple source plugins, this can
+ speedup sourcing and transforming considerably.
+- FUNCTIONS · EXPERIMENTAL · (Umbrella Issue
+(https://gatsby.dev/functions-feedback)) · Compile Serverless functions in your
+Gatsby project and write them to disk, ready to deploy to Gatsby Cloud
+
+
+[2K[1A[2K[Gsuccess open and validate gatsby-configs - 0.437s
+
+[2K[1A[2K[Gsuccess load plugins - 4.912s
+
+[2K[1A[2K[Gsuccess onPreInit - 0.117s
+
+[2K[1A[2K[Gsuccess initialize cache - 0.015s
+
+[2K[1A[2K[Gsuccess copy gatsby files - 0.891s
+
+[2K[1A[2K[Gsuccess onPreBootstrap - 0.074s
+
+[2K[1A[2K[Gsuccess createSchemaCustomization - 0.141s
+
+[2K[1A[2K[Gsuccess Checking for changed pages - 0.002s
+
+[2K[1A[2K[Gsuccess source and transform nodes - 0.361s
+
+[2K[1A[2K[Gsuccess building schema - 1.283s
+
+[2K[1A[2K[Gsuccess createPages - 0.003s
+
+[2K[1A[2K[Gsuccess createPagesStatefully - 0.223s
+
+[2K[1A[2K[Ginfo Total nodes: 73, SitePage nodes: 4 (use --verbose for breakdown)
+
+[2K[1A[2K[Gsuccess Checking for changed pages - 0.001s
+
+[2K[1A[2K[Gsuccess update schema - 0.129s
+
+[2K[1A[2K[Gsuccess write out redirect data - 0.003s
+
+[2K[1A[2K[Gsuccess Build manifest and related icons - 0.910s
+
+[2K[1A[2K[Gsuccess onPostBootstrap - 0.928s
+
+[2K[1A[2K[Ginfo bootstrap finished - 17.346s
+
+[2K[1A[2K[Gsuccess onPreExtractQueries - 0.002s
+
+[2K[1A[2K[Gsuccess extract queries from components - 3.538s
+
+[2K[1A[2K[Gsuccess write out requires - 0.323s
+
+[2K[1A[2K[Gsuccess run static queries - 0.119s - 1/1 8.39/s
+
+[2K[1A[2K[Gsuccess run page queries - 0.034s - 1/1 29.85/s
+
+[2K[1A[2K[Gwarn Browserslist: caniuse-lite is outdated. Please run:
+npx browserslist@latest --update-db
+
+Why you should do it regularly:
+https://github.com/browserslist/browserslist#browsers-data-updating
+
+[2K[1A[2K[G⠀
+
+[2K[1A[2K[GYou can now view kayiranga-don-jesus-portfolio in the browser.
+
+[2K[1A[2K[G⠀
+
+[2K[1A[2K[G  http://127.0.0.1:8000/
+
+[2K[1A[2K[G⠀
+
+[2K[1A[2K[GView GraphiQL, an in-browser IDE, to explore your site's data and schema
+
+[2K[1A[2K[G⠀
+
+[2K[1A[2K[G  http://127.0.0.1:8000/___graphql
+
+[2K[1A[2K[G⠀
+
+[2K[1A[2K[GNote that the development build is not optimized.
+
+[2K[1A[2K[GTo create a production build, use gatsby build
+
+[2K[1A[2K[G⠀
+
+[2K[1A[2K[Gsuccess Building development bundle - 15.370s
+
+[2K[1A[2K[G
+ ERROR
+
+Error loading a result for the page query in "index" / "/". Query was not run
+and no cached result was found. Error loading a result for the page query in
+"/". Query was not run and no cached result was found.
+
+
+[2K[1A[2K[G
+
+  Error: Error loading a result for the page query in "/". Query was not run and
+   no cached result was found.
+
+  - get-page-data.ts:118 readPageData
+    [my-Portfolio]/[gatsby]/src/utils/get-page-data.ts:118:11
+
+  - start-server.ts:311
+    [my-Portfolio]/[gatsby]/src/utils/start-server.ts:311:24
+
+
+
+[2K[1A[2K[G
+ ERROR
+
+Error loading a result for the page query in "404.html" / "404.html". Query was
+not run and no cached result was found. Error loading a result for the page
+query in "/404.html". Query was not run and no cached result was found.
+
+
+[2K[1A[2K[G
+
+  Error: Error loading a result for the page query in "/404.html". Query was not
+   run and no cached result was found.
+
+  - get-page-data.ts:118 readPageData
+    [my-Portfolio]/[gatsby]/src/utils/get-page-data.ts:118:11
+
+  - start-server.ts:311
+    [my-Portfolio]/[gatsby]/src/utils/start-server.ts:311:24
+
+
+
+[2K[1A[2K[G
+ ERROR
+
+Error loading a result for the page query in "dev-404-page" / "dev-404-page".
+Query was not run and no cached result was found. Error loading a result for the
+ page query in "/dev-404-page/". Query was not run and no cached result was
+found.
+
+
+[2K[1A[2K[G
+
+  Error: Error loading a result for the page query in "/dev-404-page/". Query wa
+  s not run and no cached result was found.
+
+  - get-page-data.ts:118 readPageData
+    [my-Portfolio]/[gatsby]/src/utils/get-page-data.ts:118:11
+
+  - start-server.ts:311
+    [my-Portfolio]/[gatsby]/src/utils/start-server.ts:311:24
+
+
+
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
