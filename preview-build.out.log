@@ -1,0 +1,90 @@
+yarn run v1.22.22
+$ node scripts/enable-legacy-gatsby.js && node --openssl-legacy-provider ./node_modules/gatsby/cli.js build
+success open and validate gatsby-configs - 0.207s
+
+[2K[1A[2K[Gsuccess load plugins - 5.550s
+
+[2K[1A[2K[Gsuccess onPreInit - 0.202s
+
+[2K[1A[2K[Gsuccess initialize cache - 0.024s
+
+[2K[1A[2K[Gsuccess copy gatsby files - 0.925s
+
+[2K[1A[2K[Gsuccess onPreBootstrap - 0.089s
+
+[2K[1A[2K[Gsuccess createSchemaCustomization - 0.163s
+
+[2K[1A[2K[Gsuccess Checking for changed pages - 0.001s
+
+[2K[1A[2K[Gsuccess source and transform nodes - 0.505s
+
+[2K[1A[2K[Gsuccess building schema - 1.514s
+
+[2K[1A[2K[Gsuccess createPages - 0.041s
+
+[2K[1A[2K[Gsuccess createPagesStatefully - 0.337s
+
+[2K[1A[2K[Ginfo Total nodes: 74, SitePage nodes: 5 (use --verbose for breakdown)
+
+[2K[1A[2K[Gsuccess Checking for changed pages - 0.001s
+
+[2K[1A[2K[Gsuccess update schema - 0.154s
+
+[2K[1A[2K[Gsuccess onPreExtractQueries - 0.001s
+
+[2K[1A[2K[Gsuccess extract queries from components - 3.890s
+
+[2K[1A[2K[Gsuccess write out redirect data - 0.625s
+
+[2K[1A[2K[Gsuccess Build manifest and related icons - 1.282s
+
+[2K[1A[2K[Gsuccess onPostBootstrap - 1.295s
+
+[2K[1A[2K[Ginfo bootstrap finished - 28.094s
+
+[2K[1A[2K[G
+ ERROR
+
+(node:28856) MaxListenersExceededWarning: Possible EventEmitter memory leak
+detected. 11 end listeners added to [PassThrough]. MaxListeners is 10. Use
+emitter.setMaxListeners() to increase limit
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2K[1A[2K[G
+ ERROR
+
+(node:28856) MaxListenersExceededWarning: Possible EventEmitter memory leak
+detected. 11 end listeners added to [PassThrough]. MaxListeners is 10. Use
+emitter.setMaxListeners() to increase limit
+
+
+[2K[1A[2K[Gsuccess run static queries - 5.551s - 3/3 0.54/s
+
+[2K[1A[2K[Gsuccess run page queries - 0.021s - 4/4 195.11/s
+
+[2K[1A[2K[Gsuccess write out requires - 0.033s
+
+[2K[1A[2K[Gwarn Browserslist: caniuse-lite is outdated. Please run:
+npx browserslist@latest --update-db
+
+Why you should do it regularly:
+https://github.com/browserslist/browserslist#browsers-data-updating
+
+[2K[1A[2K[Gsuccess Building production JavaScript and CSS bundles - 24.729s
+
+[2K[1A[2K[Gsuccess Rewriting compilation hashes - 0.002s
+
+[2K[1A[2K[Gsuccess Building HTML renderer - 3.128s
+
+[2K[1A[2K[Gsuccess Building static HTML for pages - 0.300s - 4/4 13.32/s
+
+[2K[1A[2K[Ginfo Generated public/sw.js, which will precache 7 files, totaling 305237 bytes.
+The following pages will be precached:
+/offline-plugin-app-shell-fallback/index.html
+
+[2K[1A[2K[Gsuccess onPostBuild - 0.133s
+
+[2K[1A[2K[Ginfo Done building in 62.2651866 sec
+
+Done in 63.05s.
