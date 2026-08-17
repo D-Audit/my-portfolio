@@ -1,0 +1,11 @@
+yarn run v1.22.22
+$ node --openssl-legacy-provider ./node_modules/gatsby/cli.js serve --port 8000 --host 127.0.0.1
+⠀
+
+[2K[1A[2K[GYou can now view kayiranga-don-jesus-portfolio in the browser.
+
+[2K[1A[2K[G⠀
+
+[2K[1A[2K[G  http://127.0.0.1:8000/
+
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
