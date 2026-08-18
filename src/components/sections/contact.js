@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { srConfig, email } from '@config';
+import { srConfig, email, phone } from '@config';
 import sr from '@utils/sr';
 import { usePrefersReducedMotion } from '@hooks';
 
@@ -39,6 +39,21 @@ const StyledContactSection = styled.section`
     ${({ theme }) => theme.mixins.bigButton};
     margin-top: 50px;
   }
+
+  .contact-options {
+    margin-top: 18px;
+    font-family: var(--font-mono);
+    font-size: var(--fz-sm);
+
+    a {
+      color: var(--green);
+
+      &:hover,
+      &:focus {
+        color: var(--green-tint);
+      }
+    }
+  }
 `;
 
 const Contact = () => {
@@ -60,13 +75,21 @@ const Contact = () => {
       <h2 className="title">Get In Touch</h2>
 
       <p>
-        Although I’m not currently looking for any new opportunities, my inbox is always open.
-        Whether you have a question or just want to say hi, I’ll try my best to get back to you!
+        I am always open to discussing software, AI, and meaningful opportunities. Whether you
+        have a project in mind, a question, or simply want to connect, feel free to reach out.
       </p>
 
       <a className="email-link" href={`mailto:${email}`}>
-        Say Hello
+        Email Me
       </a>
+
+      <p className="contact-options">
+        <a href={`tel:${phone}`}>Call: +250 795 822 174</a>
+        {' · '}
+        <a href="https://wa.me/250795822174" target="_blank" rel="noopener noreferrer">
+          WhatsApp
+        </a>
+      </p>
     </StyledContactSection>
   );
 };
