@@ -18,13 +18,14 @@ const StyledAboutSection = styled.section`
     }
   }
 `;
+
 const StyledText = styled.div`
   ul.skills-list {
     display: grid;
     grid-template-columns: repeat(2, minmax(140px, 200px));
     grid-gap: 0 10px;
     padding: 0;
-    margin: 20px 0 0 0;
+    margin: 20px 0 0;
     overflow: hidden;
     list-style: none;
 
@@ -36,7 +37,7 @@ const StyledText = styled.div`
       font-size: var(--fz-xs);
 
       &:before {
-        content: '▹';
+        content: '>';
         position: absolute;
         left: 0;
         color: var(--green);
@@ -46,6 +47,7 @@ const StyledText = styled.div`
     }
   }
 `;
+
 const StyledPic = styled.div`
   position: relative;
   max-width: 300px;
@@ -116,16 +118,22 @@ const StyledPic = styled.div`
 const About = () => {
   const revealContainer = useRef(null);
   const prefersReducedMotion = usePrefersReducedMotion();
+  const skills = [
+    'Python',
+    'Django',
+    'Next.js',
+    'TypeScript',
+    'Flutter',
+    'Electron',
+    'AI & Machine Learning',
+    'Cybersecurity',
+  ];
 
   useEffect(() => {
-    if (prefersReducedMotion) {
-      return;
+    if (!prefersReducedMotion) {
+      sr.reveal(revealContainer.current, srConfig());
     }
-
-    sr.reveal(revealContainer.current, srConfig());
-  }, []);
-
-  const skills = ['JavaScript (ES6+)', 'TypeScript', 'React', 'Eleventy', 'Node.js', 'WordPress'];
+  }, [prefersReducedMotion]);
 
   return (
     <StyledAboutSection id="about" ref={revealContainer}>
@@ -135,37 +143,29 @@ const About = () => {
         <StyledText>
           <div>
             <p>
-              Hello! My name is Brittany and I enjoy creating things that live on the internet. My
-              interest in web development started back in 2012 when I decided to try editing custom
-              Tumblr themes — turns out hacking together a custom reblog button taught me a lot
-              about HTML &amp; CSS!
+              Hello! I am Don Jesus, a Software Engineer and AI/ML Engineer from Kigali, Rwanda. I
+              enjoy turning practical challenges into secure, useful digital products.
             </p>
 
             <p>
-              Fast-forward to today, and I’ve had the privilege of working at{' '}
-              <a href="https://us.mullenlowe.com/">an advertising agency</a>,{' '}
-              <a href="https://starry.com/">a start-up</a>,{' '}
-              <a href="https://www.apple.com/">a huge corporation</a>, and{' '}
-              <a href="https://scout.camd.northeastern.edu/">a student-led design studio</a>. My
-              main focus these days is building accessible, inclusive products and digital
-              experiences at <a href="https://upstatement.com/">Upstatement</a> for a variety of
-              clients.
+              I study Software Programming, Embedded Systems, and Cybersecurity at Rwanda Coding
+              Academy. Alongside my studies, I work as CTO at Nexino Technologies Ltd., where I
+              contribute to backend development, infrastructure maintenance, and security.
             </p>
 
             <p>
-              I also recently{' '}
-              <a href="https://www.newline.co/courses/build-a-spotify-connected-app">
-                launched a course
-              </a>{' '}
-              that covers everything you need to build a web app with the Spotify API using Node
-              &amp; React.
+              My work spans web, mobile, and desktop development, with a growing focus on AI tools
+              that make complex work simpler. I enjoy designing reliable systems and learning the
+              technologies that make them possible.
             </p>
 
-            <p>Here are a few technologies I’ve been working with recently:</p>
+            <p>Here are technologies and areas I work with:</p>
           </div>
 
           <ul className="skills-list">
-            {skills && skills.map((skill, i) => <li key={i}>{skill}</li>)}
+            {skills.map(skill => (
+              <li key={skill}>{skill}</li>
+            ))}
           </ul>
         </StyledText>
 
@@ -173,11 +173,11 @@ const About = () => {
           <div className="wrapper">
             <StaticImage
               className="img"
-              src="../../images/me.jpg"
+              src="../../images/kayiranga-don-jesus.png"
               width={500}
               quality={95}
               formats={['AUTO', 'WEBP', 'AVIF']}
-              alt="Headshot"
+              alt="Portrait of Kayiranga Don Jesus"
             />
           </div>
         </StyledPic>
