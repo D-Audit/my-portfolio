@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import styled from 'styled-components';
+import { email } from '@config';
 import { navDelay, loaderDelay } from '@utils';
 import { usePrefersReducedMotion } from '@hooks';
 
@@ -57,49 +58,33 @@ const Hero = () => {
 
     const timeout = setTimeout(() => setIsMounted(true), navDelay);
     return () => clearTimeout(timeout);
-  }, []);
+  }, [prefersReducedMotion]);
 
-  const one = <h1>Hi, my name is</h1>;
-  const two = <h2 className="big-heading">Brittany Chiang.</h2>;
-  const three = <h3 className="big-heading">I build things for the web.</h3>;
-  const four = (
-    <>
-      <p>
-        I’m a software engineer specializing in building (and occasionally designing) exceptional
-        digital experiences. Currently, I’m focused on building accessible, human-centered products
-        at{' '}
-        <a href="https://upstatement.com/" target="_blank" rel="noreferrer">
-          Upstatement
-        </a>
-        .
-      </p>
-    </>
-  );
-  const five = (
-    <a
-      className="email-link"
-      href="https://www.newline.co/courses/build-a-spotify-connected-app"
-      target="_blank"
-      rel="noreferrer">
-      Check out my course!
-    </a>
-  );
-
-  const items = [one, two, three, four, five];
+  const items = [
+    <h1 key="intro">Hi, my name is</h1>,
+    <h2 key="name" className="big-heading">
+      KAYIRANGA Don Jesus.
+    </h2>,
+    <h3 key="title" className="big-heading">
+      Software Engineer &amp; AI/ML Engineer.
+    </h3>,
+    <p key="summary">
+      I build secure, practical software and AI-powered products.
+    </p>,
+    <a key="cta" className="email-link" href={`mailto:${email}`}>
+      Get in touch
+    </a>,
+  ];
 
   return (
     <StyledHeroSection>
       {prefersReducedMotion ? (
-        <>
-          {items.map((item, i) => (
-            <div key={i}>{item}</div>
-          ))}
-        </>
+        items.map(item => <div key={item.key}>{item}</div>)
       ) : (
         <TransitionGroup component={null}>
           {isMounted &&
             items.map((item, i) => (
-              <CSSTransition key={i} classNames="fadeup" timeout={loaderDelay}>
+              <CSSTransition key={item.key} classNames="fadeup" timeout={loaderDelay}>
                 <div style={{ transitionDelay: `${i + 1}00ms` }}>{item}</div>
               </CSSTransition>
             ))}
