@@ -2,7 +2,7 @@ const config = require('./src/config');
 
 module.exports = {
   siteMetadata: {
-    title: 'KAYIRANGA Don Jesus',
+    title: 'Don Jesus',
     description:
       'Kayiranga Don Jesus is a Software Engineer and AI/ML Engineer building secure, practical digital products.',
     siteUrl: 'https://d-audit.github.io', // Update when a custom domain is connected.
