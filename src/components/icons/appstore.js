@@ -48,4 +48,4 @@ const IconAppStore = () => (
   </svg>
 );
 
-export default IconAppStore;
+export default IconAppStore; 

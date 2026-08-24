@@ -83,4 +83,4 @@ Layout.propTypes = {
   location: PropTypes.object.isRequired,
 };
 
-export default Layout;
+export default Layout; 

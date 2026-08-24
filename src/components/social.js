@@ -62,4 +62,4 @@ Social.propTypes = {
   isHome: PropTypes.bool,
 };
 
-export default Social;
+export default Social; 

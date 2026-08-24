@@ -16,4 +16,4 @@ const IconFolder = () => (
   </svg>
 );
 
-export default IconFolder;
+export default IconFolder; 

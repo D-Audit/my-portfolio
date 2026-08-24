@@ -18,4 +18,4 @@ const IconHex = () => (
   </svg>
 );
 
-export default IconHex;
+export default IconHex; 

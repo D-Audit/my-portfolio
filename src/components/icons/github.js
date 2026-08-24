@@ -16,4 +16,4 @@ const IconGitHub = () => (
   </svg>
 );
 
-export default IconGitHub;
+export default IconGitHub; 

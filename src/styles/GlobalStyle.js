@@ -448,4 +448,4 @@ const GlobalStyle = createGlobalStyle`
   ${PrismStyles};
 `;
 
-export default GlobalStyle;
+export default GlobalStyle; 

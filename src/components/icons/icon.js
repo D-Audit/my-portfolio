@@ -56,4 +56,4 @@ Icon.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
-export default Icon;
+export default Icon; 

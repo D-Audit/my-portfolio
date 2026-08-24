@@ -15,4 +15,4 @@ const IconBookmark = () => (
   </svg>
 );
 
-export default IconBookmark;
+export default IconBookmark; 

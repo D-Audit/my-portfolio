@@ -71,4 +71,4 @@ NotFoundPage.propTypes = {
   location: PropTypes.object.isRequired,
 };
 
-export default NotFoundPage;
+export default NotFoundPage; 

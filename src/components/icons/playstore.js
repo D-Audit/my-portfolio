@@ -14,4 +14,4 @@ const IconPlayStore = () => (
   </svg>
 );
 
-export default IconPlayStore;
+export default IconPlayStore; 

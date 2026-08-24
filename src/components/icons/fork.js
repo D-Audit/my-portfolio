@@ -17,4 +17,4 @@ const IconFork = () => (
   </svg>
 );
 
-export default IconFork;
+export default IconFork; 

@@ -18,4 +18,4 @@ const IconLinkedin = () => (
   </svg>
 );
 
-export default IconLinkedin;
+export default IconLinkedin; 

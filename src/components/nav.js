@@ -286,4 +286,4 @@ Nav.propTypes = {
   isHome: PropTypes.bool,
 };
 
-export default Nav;
+export default Nav; 

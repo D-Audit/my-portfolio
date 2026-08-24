@@ -18,4 +18,4 @@ const IconExternal = () => (
   </svg>
 );
 
-export default IconExternal;
+export default IconExternal; 

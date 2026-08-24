@@ -59,4 +59,4 @@ Side.propTypes = {
   orientation: PropTypes.string,
 };
 
-export default Side;
+export default Side; 

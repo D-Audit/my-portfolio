@@ -47,4 +47,4 @@ Email.propTypes = {
   isHome: PropTypes.bool,
 };
 
-export default Email;
+export default Email; 

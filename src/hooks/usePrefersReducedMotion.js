@@ -27,4 +27,4 @@ function usePrefersReducedMotion() {
   return prefersReducedMotion;
 }
 
-export default usePrefersReducedMotion;
+export default usePrefersReducedMotion; 

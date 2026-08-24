@@ -14,4 +14,4 @@ const IconStar = () => (
   </svg>
 );
 
-export default IconStar;
+export default IconStar; 

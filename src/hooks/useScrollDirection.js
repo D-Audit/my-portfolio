@@ -44,4 +44,4 @@ const useScrollDirection = ({ initialDirection, thresholdPixels, off } = {}) => 
   return scrollDir;
 };
 
-export default useScrollDirection;
+export default useScrollDirection; 
