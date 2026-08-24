@@ -123,6 +123,19 @@ const StyledProject = styled.li`
     font-weight: 400;
   }
 
+  .project-status {
+    display: inline-flex;
+    width: fit-content;
+    margin: 0 0 12px;
+    padding: 5px 10px;
+    border: 1px solid var(--green);
+    border-radius: 999px;
+    color: var(--green);
+    font-family: var(--font-mono);
+    font-size: var(--fz-xxs);
+    line-height: 1.25;
+  }
+
   .project-title {
     color: var(--lightest-slate);
     font-size: clamp(24px, 5vw, 28px);
@@ -322,6 +335,7 @@ const Featured = () => {
               tech
               github
               external
+              status
             }
             html
           }
@@ -354,7 +368,7 @@ const Featured = () => {
         {featuredProjects &&
           featuredProjects.map(({ node }, i) => {
             const { frontmatter, html } = node;
-            const { external, title, tech, github, cover } = frontmatter;
+            const { external, title, tech, github, cover, status } = frontmatter;
             const image = getImage(cover);
             const projectUrl = external || github;
 
@@ -363,6 +377,8 @@ const Featured = () => {
                 <div className="project-content">
                   <div>
                     <p className="project-overline">Featured Project</p>
+
+                    {status && <p className="project-status">{status}</p>}
 
                     <h3 className="project-title">
                       <a href={projectUrl}>{title}</a>
