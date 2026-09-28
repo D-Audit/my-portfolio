@@ -65,7 +65,7 @@ const Hero = () => {
   }, [prefersReducedMotion]);
 
   const items = [
-    <h1 key="intro">Hi, my name is</h1>,
+    <h1 key="intro">Yoo!, It's</h1>,
     <h2 key="name" className="big-heading">
       Don Jesus.
     </h2>,
