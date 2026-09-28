@@ -23,7 +23,7 @@ const projects = [
   {
     title: 'Personal Portfolio',
     description:
-      'My personal portfolio website showcasing my software engineering, AI/ML work, professional experience, and projects.',
+      'My personal portfolio website showcasing my blockchain engineering work, professional experience, and projects.',
     tech: ['Gatsby', 'React', 'Styled Components'],
     github: 'https://github.com/D-Audit/my-portfolio',
   },

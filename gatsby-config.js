@@ -4,10 +4,10 @@ module.exports = {
   siteMetadata: {
     title: 'Don Jesus',
     description:
-      'Kayiranga Don Jesus is a Software Engineer and AI/ML Engineer building secure, practical digital products.',
+      'Kayiranga Don Jesus is a Blockchain Engineer and Smart Contract Developer specializing in Solana and EVM, building secure on-chain and full-stack products.',
     siteUrl: 'https://d-audit.github.io', // Update when a custom domain is connected.
     image: '/og.png', // Path to your image you placed in the 'static' folder
-    twitterUsername: '',
+    twitterUsername: '@KDonJesus',
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

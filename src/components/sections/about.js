@@ -119,13 +119,13 @@ const About = () => {
   const revealContainer = useRef(null);
   const prefersReducedMotion = usePrefersReducedMotion();
   const skills = [
-    'Python',
-    'Django',
-    'Next.js',
+    'Solidity',
+    'Rust',
+    'Solana (SPL & Programs)',
+    'EVM & Smart Contracts',
     'TypeScript',
-    'Flutter',
-    'Electron',
-    'AI & Machine Learning',
+    'Next.js',
+    'Python',
     'Cybersecurity',
   ];
 
@@ -143,8 +143,10 @@ const About = () => {
         <StyledText>
           <div>
             <p>
-              Hello! I am Don Jesus, a Software Engineer and AI/ML Engineer from Kigali, Rwanda. I
-              enjoy turning practical challenges into secure, useful digital products.
+              Hello! I am Don Jesus, a Blockchain Engineer and Smart Contract Developer from Kigali,
+              Rwanda. I design and ship secure smart contracts and decentralized applications, with
+              a focus on turning practical challenges into on-chain products people can actually
+              use.
             </p>
 
             <p>
@@ -154,9 +156,10 @@ const About = () => {
             </p>
 
             <p>
-              My work spans web, mobile, and desktop development, with a growing focus on AI tools
-              that make complex work simpler. I enjoy designing reliable systems and learning the
-              technologies that make them possible.
+              I am also a full-stack developer, so I take products end to end: contracts and
+              on-chain programs on one side, and web, mobile, and desktop frontends on the other. I
+              enjoy designing reliable systems and learning the technologies that make them
+              possible.
             </p>
 
             <p>Here are technologies and areas I work with:</p>
@@ -177,7 +180,7 @@ const About = () => {
               width={500}
               quality={95}
               formats={['AUTO', 'WEBP', 'AVIF']}
-              alt="Portrait of Kayiranga Don Jesus"
+              alt="Portrait of Don Jesus"
             />
           </div>
         </StyledPic>

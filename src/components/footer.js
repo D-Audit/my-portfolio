@@ -43,7 +43,6 @@ const StyledCredit = styled.div`
   font-family: var(--font-mono);
   font-size: var(--fz-xxs);
   line-height: 1.5;
-
 `;
 
 const Footer = () => (
@@ -60,9 +59,7 @@ const Footer = () => (
       </ul>
     </StyledSocialLinks>
 
-    <StyledCredit tabIndex="-1">
-      Designed and built by Kayiranga Don Jesus
-    </StyledCredit>
+    <StyledCredit tabIndex="-1">Designed and built by Don Jesus</StyledCredit>
   </StyledFooter>
 );
 

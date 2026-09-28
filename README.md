@@ -1,37 +1,20 @@
 # KAYIRANGA Don Jesus - Portfolio
 
-Personal portfolio showcasing work as a Software Engineer and AI/ML Engineer based in Kigali, Rwanda.
+Personal portfolio for KAYIRANGA Don Jesus, a Blockchain Engineer and Smart Contract Developer (Solana & EVM) based in Kigali, Rwanda.
 
-## 🎯 About
+## Highlights
 
-This portfolio highlights professional experience as CTO and featured projects including Xelora AI and AI Recruiter platform. Designed to showcase technical expertise and career achievements.
+- Blockchain engineering: smart contracts on Solana and EVM-compatible chains
+- Full-stack development across web, mobile, and desktop
+- Professional experience as CTO at Nexino Technologies Ltd.
+- Featured work: Xelora AI and AI Recruiter
+- Connect Wallet button with public MetaMask address on the contact section
+- Downloadable resume at `/resume.pdf`
+- Built with Gatsby and React
 
-## ✨ Features
+## Run locally
 
-- Clean, professional design
-- Responsive layout across all devices
-- Downloadable resume
-- Project showcase with live links
-- Contact information and social links
-
-## 📂 Sections
-
-- **About** - Professional background and expertise
-- **Experience** - Career history and roles
-- **Projects** - Featured work and accomplishments
-- **Skills** - Technical and professional capabilities
-- **Contact** - Ways to get in touch
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js 14+ with Corepack
-- Yarn package manager
-
-### Installation
-
-```bash
-cd my-portfolio
+```sh
 corepack yarn install
 ```
 

@@ -14,3 +14,5 @@ export { default as Certificates } from './sections/certificates';
 export { default as Featured } from './sections/featured';
 export { default as Projects } from './sections/projects';
 export { default as Contact } from './sections/contact';
+export { default as WalletCard } from './wallet';
+export { default as HeroWalletButton } from './heroWalletButton';

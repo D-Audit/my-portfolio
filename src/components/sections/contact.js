@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { srConfig, email, phone } from '@config';
 import sr from '@utils/sr';
 import { usePrefersReducedMotion } from '@hooks';
+import { WalletCard } from '@components';
 
 const StyledContactSection = styled.section`
   max-width: 600px;
@@ -75,8 +76,9 @@ const Contact = () => {
       <h2 className="title">Get In Touch</h2>
 
       <p>
-        I am always open to discussing software, AI, and meaningful opportunities. Whether you
-        have a project in mind, a question, or simply want to connect, feel free to reach out.
+        I am always open to discussing blockchain, smart contracts, full-stack software, and
+        meaningful opportunities. Whether you have a project in mind, an audit to discuss, a
+        question, or simply want to connect, feel free to reach out.
       </p>
 
       <a className="email-link" href={`mailto:${email}`}>
@@ -90,6 +92,8 @@ const Contact = () => {
           WhatsApp
         </a>
       </p>
+
+      <WalletCard />
     </StyledContactSection>
   );
 };

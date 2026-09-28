@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { email } from '@config';
 import { navDelay, loaderDelay } from '@utils';
 import { usePrefersReducedMotion } from '@hooks';
+import { HeroWalletButton } from '@components';
 
 const StyledHeroSection = styled.section`
   ${({ theme }) => theme.mixins.flexCenter};
@@ -41,8 +42,11 @@ const StyledHeroSection = styled.section`
     max-width: 540px;
   }
 
-  .email-link {
-    ${({ theme }) => theme.mixins.bigButton};
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
     margin-top: 50px;
   }
 `;
@@ -63,17 +67,20 @@ const Hero = () => {
   const items = [
     <h1 key="intro">Hi, my name is</h1>,
     <h2 key="name" className="big-heading">
-      KAYIRANGA Don Jesus.
+      Don Jesus.
     </h2>,
     <h3 key="title" className="big-heading">
-      Software Engineer &amp; AI/ML Engineer.
+      Blockchain Engineer &amp; Smart Contract Developer.
     </h3>,
     <p key="summary">
-      I build secure, practical software and AI-powered products.
+      I build secure smart contracts and full-stack products on Solana and EVM-compatible chains.
     </p>,
-    <a key="cta" className="email-link" href={`mailto:${email}`}>
-      Get in touch
-    </a>,
+    <div key="cta" className="hero-actions">
+      <a className="email-link" href={`mailto:${email}`}>
+        Get in touch
+      </a>
+      <HeroWalletButton />
+    </div>,
   ];
 
   return (

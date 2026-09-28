@@ -8,14 +8,24 @@ module.exports = {
       url: 'https://github.com/D-Audit',
     },
     {
+      name: 'Linkedin',
+      url: 'https://www.linkedin.com/in/don-jesus-kayiranga-565710437/',
+    },
+    {
+      name: 'X',
+      url: 'https://x.com/KDonJesus',
+    },
+    {
       name: 'Instagram',
       url: 'https://www.instagram.com/donje_sus12/',
     },
-    {
-      name: 'Linkedin',
-      url: 'https://www.linkedin.com/in/don-kayiranga-2b9177408/',
-    },
   ],
+
+  // Public MetaMask wallet address (safe to display publicly)
+  wallet: {
+    address: '0x2e7c2c25Ef890255abFBCCE2d1367cCfA93ac41D',
+    network: 'Ethereum & EVM-compatible networks',
+  },
 
   navLinks: [
     {
