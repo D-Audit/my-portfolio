@@ -40,7 +40,7 @@ const HeroWalletButton = () => {
     <StyledHeroWalletButton
       type="button"
       onClick={onClick}
-      title={account ? 'Send Ether to support my work' : 'Connect your MetaMask wallet'}>
+      title={account ? 'Send Ether to fuel the next build' : 'Connect your MetaMask wallet'}>
       <IconWallet />
       {account ? <span className="wallet-addr">{truncateAddress(account)}</span> : 'Connect Wallet'}
     </StyledHeroWalletButton>

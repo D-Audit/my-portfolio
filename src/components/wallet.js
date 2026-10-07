@@ -11,7 +11,7 @@ import {
   sendEther,
 } from '@hooks/useEthereumWallet';
 import WalletModal from '@components/walletModal';
-import { IconCoffee, IconCopy, IconHeart, IconSend, IconWallet, IconZap } from '@components/icons';
+import { IconCopy, IconSend, IconWallet } from '@components/icons';
 
 const truncateAddress = address => `${address.slice(0, 6)}...${address.slice(-4)}`;
 
@@ -25,25 +25,10 @@ const StyledWalletSection = styled.div`
   .support-icons {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 12px;
     margin-bottom: 14px;
-
-    svg {
-      width: 26px;
-      height: 26px;
-    }
-
-    .coffee {
-      color: var(--green);
-    }
-
-    .heart {
-      color: var(--pink);
-    }
-
-    .zap {
-      color: var(--blue);
-    }
+    font-size: 26px;
+    line-height: 1;
   }
 
   .support-title {
@@ -410,7 +395,7 @@ const WalletCard = () => {
     setTxStatus({ type: 'pending', text: 'Confirm the transaction in your wallet...' });
     try {
       const hash = await sendEther(wallet.address, amount);
-      setTxStatus({ type: 'success', text: 'Thank you! Transaction sent.', hash });
+      setTxStatus({ type: 'success', text: 'Received on-chain. Much appreciated!', hash });
       setAmount('');
     } catch (e) {
       const rejected = e && e.code === 4001;
@@ -434,21 +419,21 @@ const WalletCard = () => {
   return (
     <StyledWalletSection id="wallet" ref={revealContainer}>
       <div className="support-icons" aria-hidden="true">
-        <span className="coffee">
-          <IconCoffee />
+        <span role="img" aria-label="shield">
+          🛡️
         </span>
-        <span className="heart">
-          <IconHeart />
+        <span role="img" aria-label="chain">
+          ⛓️
         </span>
-        <span className="zap">
-          <IconZap />
+        <span role="img" aria-label="rocket">
+          🚀
         </span>
       </div>
-      <h3 className="support-title">Support My Work</h3>
-      <p className="support-subtitle">Like what I build? Show your appreciation!</p>
+      <h3 className="support-title">Fuel the Next Build</h3>
+      <p className="support-subtitle">Found something useful here? Send a little gas my way.</p>
       <p className="support-note">
-        Coffee is nice, but I run on real <span className="eth">ETH</span>. Your support helps me
-        keep building secure on-chain products.
+        Every bit of <span className="eth">ETH</span> goes straight into more audits, more
+        experiments, and safer smart contracts on-chain.
       </p>
 
       <div className="divider" aria-hidden="true">
