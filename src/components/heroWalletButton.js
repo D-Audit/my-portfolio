@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useEthereumWallet } from '@hooks';
+import useEthereumWallet, { openWalletModal } from '@hooks/useEthereumWallet';
 import { IconWallet } from '@components/icons';
 
 const StyledHeroWalletButton = styled.button`
@@ -25,15 +25,16 @@ const StyledHeroWalletButton = styled.button`
 const truncateAddress = address => `${address.slice(0, 6)}...${address.slice(-4)}`;
 
 const HeroWalletButton = () => {
-  const { account, connect } = useEthereumWallet();
+  const { account } = useEthereumWallet();
 
-  const onClick = () => {
-    if (account) {
-      document.getElementById('wallet').scrollIntoView({ behavior: 'smooth' });
-      return;
+  const scrollToWallet = () => {
+    const section = document.getElementById('wallet');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
-    connect();
   };
+
+  const onClick = () => (account ? scrollToWallet() : openWalletModal());
 
   return (
     <StyledHeroWalletButton

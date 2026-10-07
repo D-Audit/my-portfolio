@@ -3,8 +3,15 @@ import styled from 'styled-components';
 import { srConfig, wallet } from '@config';
 import sr from '@utils/sr';
 import { usePrefersReducedMotion, useEthereumWallet } from '@hooks';
-import { getNetworkName, getExplorerTxUrl } from '@hooks/useEthereumWallet';
-import { IconCopy, IconSend, IconWallet } from '@components/icons';
+import {
+  disconnectWallet,
+  getExplorerTxUrl,
+  getNetworkName,
+  openWalletModal,
+  sendEther,
+} from '@hooks/useEthereumWallet';
+import WalletModal from '@components/walletModal';
+import { IconCoffee, IconCopy, IconHeart, IconSend, IconWallet, IconZap } from '@components/icons';
 
 const truncateAddress = address => `${address.slice(0, 6)}...${address.slice(-4)}`;
 
@@ -14,6 +21,30 @@ const StyledWalletSection = styled.div`
   max-width: 600px;
   margin: 80px auto 0;
   text-align: center;
+
+  .support-icons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 14px;
+
+    svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    .coffee {
+      color: var(--green);
+    }
+
+    .heart {
+      color: var(--pink);
+    }
+
+    .zap {
+      color: var(--blue);
+    }
+  }
 
   .support-title {
     margin: 0 0 10px;
@@ -116,6 +147,32 @@ const StyledWalletCard = styled.div`
       border-color: var(--green);
       color: var(--green);
       background-color: var(--green-tint);
+    }
+  }
+
+  .connect-prompt {
+    margin: 0 0 20px;
+    color: var(--light-slate);
+    font-size: var(--fz-md);
+    text-align: center;
+  }
+
+  .disconnect-button {
+    display: block;
+    margin: 4px auto 0;
+    padding: 0;
+    border: 0;
+    color: var(--slate);
+    background: transparent;
+    font-family: var(--font-mono);
+    font-size: var(--fz-xxs);
+    cursor: pointer;
+    transition: var(--transition);
+
+    &:hover,
+    &:focus-visible {
+      outline: none;
+      color: var(--pink);
     }
   }
 
@@ -317,7 +374,7 @@ const StyledWalletCard = styled.div`
 const WalletCard = () => {
   const revealContainer = useRef(null);
   const prefersReducedMotion = usePrefersReducedMotion();
-  const { account, chainId, balance, connect, sendEther } = useEthereumWallet();
+  const { account, chainId, balance, walletName } = useEthereumWallet();
   const [amount, setAmount] = useState('');
   const [copied, setCopied] = useState(false);
   const [sending, setSending] = useState(false);
@@ -366,10 +423,27 @@ const WalletCard = () => {
     }
   };
 
+  const onDisconnect = () => {
+    disconnectWallet();
+    setAmount('');
+    setTxStatus(null);
+  };
+
   const txUrl = txStatus && txStatus.hash && getExplorerTxUrl(chainId, txStatus.hash);
 
   return (
     <StyledWalletSection id="wallet" ref={revealContainer}>
+      <div className="support-icons" aria-hidden="true">
+        <span className="coffee">
+          <IconCoffee />
+        </span>
+        <span className="heart">
+          <IconHeart />
+        </span>
+        <span className="zap">
+          <IconZap />
+        </span>
+      </div>
       <h3 className="support-title">Support My Work</h3>
       <p className="support-subtitle">Like what I build? Show your appreciation!</p>
       <p className="support-note">
@@ -387,93 +461,100 @@ const WalletCard = () => {
             <IconSend />
             Send Ether
           </h4>
-          <span className={`status-pill ${account ? 'connected' : ''}`}>
-            {account ? 'Connected' : 'Not connected'}
-          </span>
-        </div>
-
-        <label className="label" htmlFor="eth-amount">
-          Amount (ETH)
-        </label>
-        <input
-          id="eth-amount"
-          className="amount-input"
-          type="text"
-          inputMode="decimal"
-          autoComplete="off"
-          placeholder="0.0"
-          value={amount}
-          onChange={onAmountChange}
-          disabled={!account || sending}
-        />
-
-        <div className="address-box">
-          <div className="address-row">
-            <span className="label">Recipient address</span>
-            <div className="address-value">
-              <span>{wallet.address}</span>
-              <button
-                type="button"
-                className="copy-button"
-                onClick={copyAddress}
-                aria-label="Copy recipient address">
-                <IconCopy />
-              </button>
-              {copied && <span className="muted">Copied!</span>}
-            </div>
-          </div>
-          <div className="address-row">
-            <span className="label">Your address</span>
-            <div className={`address-value ${account ? '' : 'muted'}`}>
-              {account || 'Connect your wallet to continue'}
-            </div>
-          </div>
+          {account && <span className="status-pill connected">Connected</span>}
         </div>
 
         {account ? (
-          <button
-            type="button"
-            className="primary-button"
-            onClick={onSend}
-            disabled={!amountIsValid || sending}>
-            <IconSend />
-            {sending ? 'Sending...' : 'Send Ether'}
-          </button>
+          <>
+            <label className="label" htmlFor="eth-amount">
+              Amount (ETH)
+            </label>
+            <input
+              id="eth-amount"
+              className="amount-input"
+              type="text"
+              inputMode="decimal"
+              autoComplete="off"
+              placeholder="0.0"
+              value={amount}
+              onChange={onAmountChange}
+              disabled={sending}
+            />
+
+            <div className="address-box">
+              <div className="address-row">
+                <span className="label">Recipient address</span>
+                <div className="address-value">
+                  <span>{wallet.address}</span>
+                  <button
+                    type="button"
+                    className="copy-button"
+                    onClick={copyAddress}
+                    aria-label="Copy recipient address">
+                    <IconCopy />
+                  </button>
+                  {copied && <span className="muted">Copied!</span>}
+                </div>
+              </div>
+              <div className="address-row">
+                <span className="label">Your address</span>
+                <div className="address-value">{account}</div>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              className="primary-button"
+              onClick={onSend}
+              disabled={!amountIsValid || sending}>
+              <IconSend />
+              {sending ? 'Sending...' : 'Send Ether'}
+            </button>
+
+            <p
+              className={`tx-status ${txStatus ? txStatus.type : ''}`}
+              role="status"
+              aria-live="polite">
+              {txStatus ? txStatus.text : ' '}
+              {txUrl && (
+                <>
+                  {' '}
+                  <a href={txUrl} target="_blank" rel="noopener noreferrer">
+                    View on explorer
+                  </a>
+                </>
+              )}
+            </p>
+
+            <div className="info-grid">
+              <div className="info-tile highlight">
+                <span className="label">Network</span>
+                <div className="info-main">{chainId ? getNetworkName(chainId) : '—'}</div>
+                <div className="info-sub">{chainId ? `Chain ID #${chainId}` : ' '}</div>
+              </div>
+              <div className="info-tile">
+                <span className="label">{walletName || 'Wallet'}</span>
+                <div className="info-main">{truncateAddress(account)}</div>
+                <div className="info-sub">{balance !== null ? `${balance} ETH` : ' '}</div>
+              </div>
+            </div>
+
+            <button type="button" className="disconnect-button" onClick={onDisconnect}>
+              Disconnect wallet
+            </button>
+          </>
         ) : (
-          <button type="button" className="primary-button" onClick={connect}>
-            <IconWallet />
-            Connect Wallet
-          </button>
+          <>
+            <p className="connect-prompt">Connect your wallet to send Ether directly</p>
+            <button type="button" className="primary-button" onClick={openWalletModal}>
+              <IconWallet />
+              Connect Wallet
+            </button>
+          </>
         )}
-
-        <p
-          className={`tx-status ${txStatus ? txStatus.type : ''}`}
-          role="status"
-          aria-live="polite">
-          {txStatus ? txStatus.text : ' '}
-          {txUrl && (
-            <>
-              {' '}
-              <a href={txUrl} target="_blank" rel="noopener noreferrer">
-                View on explorer
-              </a>
-            </>
-          )}
-        </p>
-
-        <div className="info-grid">
-          <div className="info-tile highlight">
-            <span className="label">Network</span>
-            <div className="info-main">{chainId ? getNetworkName(chainId) : '—'}</div>
-            <div className="info-sub">{chainId ? `Chain ID #${chainId}` : wallet.network}</div>
-          </div>
-          <div className="info-tile">
-            <span className="label">Wallet</span>
-            <div className="info-main">{account ? truncateAddress(account) : '—'}</div>
-            <div className="info-sub">{balance !== null ? `${balance} ETH` : 'Not connected'}</div>
-          </div>
-        </div>
       </StyledWalletCard>
+
+      <WalletModal />
     </StyledWalletSection>
   );
 };

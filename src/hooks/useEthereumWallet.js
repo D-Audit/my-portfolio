@@ -1,5 +1,5 @@
 /* global BigInt */
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const NETWORKS = {
   1: 'Ethereum',
@@ -23,9 +23,48 @@ const EXPLORERS = {
   11155111: 'https://sepolia.etherscan.io',
 };
 
-const WEI_PER_ETH = BigInt('1000000000000000000');
+// Wallets offered in the picker. Installed ones are matched by their EIP-6963 rdns.
+export const SUPPORTED_WALLETS = [
+  {
+    rdns: 'io.metamask',
+    name: 'MetaMask',
+    color: '#f6851b',
+    installUrl: 'https://metamask.io/download/',
+    mobileLink: url => `https://metamask.app.link/dapp/${url.replace(/^https?:\/\//, '')}`,
+  },
+  {
+    rdns: 'com.trustwallet.app',
+    name: 'Trust Wallet',
+    color: '#0500ff',
+    installUrl: 'https://trustwallet.com/download',
+    mobileLink: url =>
+      `https://link.trustwallet.com/open_url?coin_id=60&url=${encodeURIComponent(url)}`,
+  },
+  {
+    rdns: 'app.phantom',
+    name: 'Phantom',
+    color: '#ab9ff2',
+    installUrl: 'https://phantom.com/download',
+    mobileLink: url =>
+      `https://phantom.app/ul/browse/${encodeURIComponent(url)}?ref=${encodeURIComponent(url)}`,
+  },
+  {
+    rdns: 'io.rabby',
+    name: 'Rabby',
+    color: '#7084ff',
+    installUrl: 'https://rabby.io/',
+  },
+  {
+    rdns: 'com.okex.wallet',
+    name: 'OKX Wallet',
+    color: '#000000',
+    installUrl: 'https://www.okx.com/web3',
+  },
+];
 
-const getProvider = () => (typeof window !== 'undefined' ? window.ethereum : undefined);
+const STORAGE_KEY = 'connected-wallet-rdns';
+const LEGACY_RDNS = 'injected';
+const WEI_PER_ETH = BigInt('1000000000000000000');
 
 // Converts a decimal ETH string (e.g. "0.05") to a hex wei string without float rounding.
 export const ethToWeiHex = amount => {
@@ -46,76 +85,156 @@ export const getNetworkName = chainId => NETWORKS[chainId] || `Chain ${chainId}`
 export const getExplorerTxUrl = (chainId, hash) =>
   EXPLORERS[chainId] ? `${EXPLORERS[chainId]}/tx/${hash}` : null;
 
-const useEthereumWallet = () => {
-  const [account, setAccount] = useState(null);
-  const [chainId, setChainId] = useState(null);
-  const [balance, setBalance] = useState(null);
+const readStoredRdns = () => {
+  try {
+    return window.localStorage.getItem(STORAGE_KEY);
+  } catch (e) {
+    return null;
+  }
+};
 
-  const refresh = useCallback(async () => {
-    const provider = getProvider();
-    if (!provider) {
-      return;
+const writeStoredRdns = rdns => {
+  try {
+    if (rdns) {
+      window.localStorage.setItem(STORAGE_KEY, rdns);
+    } else {
+      window.localStorage.removeItem(STORAGE_KEY);
     }
-    try {
-      const [accounts, chainHex] = await Promise.all([
-        provider.request({ method: 'eth_accounts' }),
-        provider.request({ method: 'eth_chainId' }),
-      ]);
-      const current = accounts && accounts.length > 0 ? accounts[0] : null;
-      setAccount(current);
-      setChainId(parseInt(chainHex, 16));
-      if (current) {
-        const weiHex = await provider.request({
-          method: 'eth_getBalance',
-          params: [current, 'latest'],
-        });
-        setBalance(formatBalance(weiHex));
-      } else {
-        setBalance(null);
-      }
-    } catch (e) {
-      // Provider unavailable or locked; keep the disconnected state.
-    }
-  }, []);
+  } catch (e) {
+    // Storage blocked; the connection just won't be restored on reload.
+  }
+};
 
-  useEffect(() => {
-    const provider = getProvider();
-    if (!provider) {
-      return undefined;
+// One wallet connection shared by every component that uses the hook.
+let state = {
+  detected: [],
+  provider: null,
+  walletName: null,
+  account: null,
+  chainId: null,
+  balance: null,
+  modalOpen: false,
+};
+const listeners = new Set();
+let initialized = false;
+
+const setState = patch => {
+  state = { ...state, ...patch };
+  listeners.forEach(listener => listener(state));
+};
+
+const refresh = async () => {
+  const { provider } = state;
+  if (!provider) {
+    return;
+  }
+  try {
+    const [accounts, chainHex] = await Promise.all([
+      provider.request({ method: 'eth_accounts' }),
+      provider.request({ method: 'eth_chainId' }),
+    ]);
+    const account = accounts && accounts.length > 0 ? accounts[0] : null;
+    let balance = null;
+    if (account) {
+      const weiHex = await provider.request({
+        method: 'eth_getBalance',
+        params: [account, 'latest'],
+      });
+      balance = formatBalance(weiHex);
     }
-    refresh();
+    setState({ account, chainId: parseInt(chainHex, 16), balance });
+  } catch (e) {
+    // Provider unavailable or locked; keep the current state.
+  }
+};
+
+const setActiveProvider = (provider, walletName) => {
+  if (state.provider && state.provider !== provider) {
+    state.provider.removeListener('accountsChanged', refresh);
+    state.provider.removeListener('chainChanged', refresh);
+  }
+  if (provider && state.provider !== provider) {
     provider.on('accountsChanged', refresh);
     provider.on('chainChanged', refresh);
-    return () => {
-      provider.removeListener('accountsChanged', refresh);
-      provider.removeListener('chainChanged', refresh);
-    };
-  }, [refresh]);
+  }
+  setState({ provider, walletName });
+};
 
-  const connect = async () => {
-    const provider = getProvider();
-    if (!provider) {
-      window.open('https://metamask.io/download/', '_blank', 'noopener noreferrer');
-      return;
-    }
-    try {
-      await provider.request({ method: 'eth_requestAccounts' });
-      await refresh();
-    } catch (e) {
-      // User rejected the connection request; nothing to do.
-    }
-  };
-
-  const sendEther = async (to, amount) => {
-    const hash = await getProvider().request({
-      method: 'eth_sendTransaction',
-      params: [{ from: account, to, value: ethToWeiHex(amount) }],
-    });
+const addDetected = entry => {
+  if (state.detected.some(wallet => wallet.rdns === entry.rdns)) {
+    return;
+  }
+  setState({ detected: [...state.detected, entry] });
+  if (!state.provider && readStoredRdns() === entry.rdns) {
+    setActiveProvider(entry.provider, entry.name);
     refresh();
-    return hash;
-  };
+  }
+};
 
-  return { account, chainId, balance, connect, sendEther, refresh };
+const init = () => {
+  if (initialized || typeof window === 'undefined') {
+    return;
+  }
+  initialized = true;
+
+  window.addEventListener('eip6963:announceProvider', event => {
+    const { info, provider } = event.detail;
+    addDetected({ rdns: info.rdns, name: info.name, icon: info.icon, provider });
+  });
+  window.dispatchEvent(new Event('eip6963:requestProvider'));
+
+  // Older wallets only expose window.ethereum without announcing themselves.
+  setTimeout(() => {
+    if (state.detected.length === 0 && window.ethereum) {
+      addDetected({
+        rdns: LEGACY_RDNS,
+        name: window.ethereum.isMetaMask ? 'MetaMask' : 'Browser Wallet',
+        icon: null,
+        provider: window.ethereum,
+      });
+    }
+  }, 500);
+};
+
+export const openWalletModal = () => setState({ modalOpen: true });
+
+export const closeWalletModal = () => setState({ modalOpen: false });
+
+export const connectWallet = async wallet => {
+  await wallet.provider.request({ method: 'eth_requestAccounts' });
+  setActiveProvider(wallet.provider, wallet.name);
+  writeStoredRdns(wallet.rdns);
+  await refresh();
+  setState({ modalOpen: false });
+};
+
+// Forgets the wallet on this site; the wallet itself keeps its own permission list.
+export const disconnectWallet = () => {
+  setActiveProvider(null, null);
+  writeStoredRdns(null);
+  setState({ account: null, chainId: null, balance: null });
+};
+
+export const sendEther = async (to, amount) => {
+  const hash = await state.provider.request({
+    method: 'eth_sendTransaction',
+    params: [{ from: state.account, to, value: ethToWeiHex(amount) }],
+  });
+  refresh();
+  return hash;
+};
+
+const useEthereumWallet = () => {
+  const [snapshot, setSnapshot] = useState(state);
+
+  useEffect(() => {
+    listeners.add(setSnapshot);
+    init();
+    setSnapshot(state);
+    return () => listeners.delete(setSnapshot);
+  }, []);
+
+  return snapshot;
 };
 
 export default useEthereumWallet;
