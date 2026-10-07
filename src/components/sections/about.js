@@ -125,6 +125,7 @@ const About = () => {
     'EVM & Smart Contracts',
     'TypeScript',
     'Next.js',
+    'Vue.js',
     'Python',
     'Cybersecurity',
   ];

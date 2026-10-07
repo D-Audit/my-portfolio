@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { wallet } from '@config';
+import { useEthereumWallet } from '@hooks';
 import { IconWallet } from '@components/icons';
 
 const StyledHeroWalletButton = styled.button`
@@ -25,37 +25,23 @@ const StyledHeroWalletButton = styled.button`
 const truncateAddress = address => `${address.slice(0, 6)}...${address.slice(-4)}`;
 
 const HeroWalletButton = () => {
-  const [connected, setConnected] = useState(false);
+  const { account, connect } = useEthereumWallet();
 
-  const connectWallet = async () => {
-    const ethereumProvider = typeof window !== 'undefined' && window.ethereum;
-    if (!ethereumProvider) {
-      window.open('https://metamask.io/download/', '_blank', 'noopener noreferrer');
+  const onClick = () => {
+    if (account) {
+      document.getElementById('wallet').scrollIntoView({ behavior: 'smooth' });
       return;
     }
-    try {
-      const accounts = await ethereumProvider.request({
-        method: 'eth_requestAccounts',
-      });
-      if (accounts && accounts.length > 0) {
-        setConnected(true);
-      }
-    } catch (e) {
-      // User rejected the connection request; nothing to do.
-    }
+    connect();
   };
 
   return (
     <StyledHeroWalletButton
       type="button"
-      onClick={connectWallet}
-      title={connected ? wallet.address : 'Connect your MetaMask wallet'}>
+      onClick={onClick}
+      title={account ? 'Send Ether to support my work' : 'Connect your MetaMask wallet'}>
       <IconWallet />
-      {connected ? (
-        <span className="wallet-addr">{truncateAddress(wallet.address)}</span>
-      ) : (
-        'Connect Wallet'
-      )}
+      {account ? <span className="wallet-addr">{truncateAddress(account)}</span> : 'Connect Wallet'}
     </StyledHeroWalletButton>
   );
 };

@@ -35,7 +35,9 @@ corepack yarn build
 ## 📝 Customization
 
 ### Update Personal Information
+
 Edit content sections to reflect your:
+
 - Professional bio
 - Work experience
 - Project descriptions
@@ -43,9 +45,11 @@ Edit content sections to reflect your:
 - Contact details
 
 ### Modify Styling
+
 Customize colors, fonts, and layout to match your personal brand.
 
 ### Add Projects
+
 Include links to live demos and source code repositories for all featured work.
 
 ## 📄 Resume
@@ -55,6 +59,7 @@ A downloadable resume is available at `/resume.pdf`
 ## 🔗 Social Links
 
 Connect on:
+
 - LinkedIn
 - GitHub
 - Twitter/X
@@ -71,9 +76,10 @@ This project is available under the MIT License.
 ## 👨‍💻 Author
 
 **KAYIRANGA Don Jesus**
+
 - GitHub: [@D-Audit](https://github.com/D-Audit)
 - Location: Kigali, Rwanda
-- Role: Software Engineer, AI/ML Engineer, CTO
+- Role: Blockchain Engineer, Smart Contract Developer, CTO
 
 ---
 
